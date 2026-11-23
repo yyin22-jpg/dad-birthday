@@ -1,0 +1,17 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "tickets": {
+      ".read": true,
+      ".indexOn": ["createdAt"],
+      "$ticketId": {
+        ".write": true,
+        ".validate": "newData.hasChildren(['serial', 'createdAt']) && newData.child('serial').isNumber() && newData.child('createdAt').isNumber()",
+        "serial": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() < 100000" },
+        "createdAt": { ".validate": "newData.isNumber()" },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}
